@@ -23,12 +23,33 @@ export class ProjectsManager {
             if (!projectsPage || !detailsPage) { return }
             projectsPage.classList.add("hidden");
             detailsPage.classList.remove("hidden");
+            this.setDetailsPage(project);
         });
         this.ui.append(project.ui);
         this.list.push(project);
         return project;
     }
 
+    private setDetailsPage(project: Project) {
+        const detailsPage = document.getElementById("project-details");
+        if (!detailsPage) { return }
+        const name = detailsPage.querySelectorAll("[data-project-info='name']");
+        const description = detailsPage.querySelectorAll("[data-project-info='description']");
+        const status = detailsPage.querySelector("[data-project-info='status']");
+        const cost = detailsPage.querySelector("[data-project-info='cost']");
+        const role = detailsPage.querySelector("[data-project-info='role']");
+        const finishDate = detailsPage.querySelector("[data-project-info='finish-date']");
+        const progress = detailsPage.querySelector("[data-project-info='progress']");
+        const progressBar = detailsPage.querySelector("[data-project-info='progress-bar']");
+        if (name) { name.forEach((el) => { el.textContent = project.projectName }) }
+        if (description) { description.forEach((el) => { el.textContent = project.projectDescription }) }
+        if (status) { status.textContent = project.projectStatus }
+        if (cost) { cost.textContent = `$${project.cost}` }
+        if (role) { role.textContent = project.projectRole }
+        if (finishDate) { finishDate.textContent = project.projectCompletionDate.toLocaleDateString() }
+        if (progress) { progress.textContent = `${project.progress * 100}%` }
+        if (progressBar) { progressBar.style.width = `${project.progress * 100}%` }
+    }
 
     getProject(id: string) {
         const project = this.list.find((project) => {
