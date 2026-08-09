@@ -116,8 +116,8 @@
         <div class="page hidden" id="project-details">
             <header>
                 <div>
-                    <h2>Hospital Center</h2>
-                    <p style="color: var(--secondary-200)">Community hospital located downtown</p>
+                    <h2 data-project-info="name">Hospital Center</h2>
+                    <p data-project-info="description" style="color: var(--secondary-200)">Community hospital located downtown</p>
                 </div>
             </header>
 
@@ -129,26 +129,26 @@
                             <button class="button-hollow"><span class="material-icons-round">edit</span>Edit</button>
                         </div>
                         <div style="margin: 15px 0px;">
-                            <p style="color:var(--text-100); font-weight: 500;">Hospital Center</p>
-                            <p style="color: var(--secondary-200)">Community hospital located downtown</p>
+                            <p data-project-info="name" style="color:var(--text-100); font-weight: 500;">Hospital Center</p>
+                            <p data-project-info="description" style="color: var(--secondary-200)">Community hospital located downtown</p>
                         </div>
                         <div style="display: flex; flex-direction: row; margin: 15px 0px; justify-content: space-between;">
                             <div style="display: flex; flex-direction: column;">
-                                <p style="color: var(--secondary-200)">Status</p><p>Active</p>
+                                <p style="color: var(--secondary-200)">Status</p><p data-project-info="status">Active</p>
                             </div>
                             <div style="display: flex; flex-direction: column;">
-                                <p style="color: var(--secondary-200)">Cost</p><p>$10,000</p>
+                                <p style="color: var(--secondary-200)">Cost</p><p data-project-info="cost">$10,000</p>
                             </div>
                             <div style="display: flex; flex-direction: column;">
-                                <p style="color: var(--secondary-200)">Role</p><p>Engineer</p>
+                                <p style="color: var(--secondary-200)">Role</p><p data-project-info="role">Engineer</p>
                             </div>
                             <div style="display: flex; flex-direction: column;">
-                                <p style="color: var(--secondary-200)">Finish Date</p><p>2023-12-31</p>
+                                <p style="color: var(--secondary-200)">Finish Date</p><p data-project-info="finish-date">2023-12-31</p>
                             </div>
                         </div>
                         <div class="progress-bar">
-                            <div class="progress-fill" style="width: 65%;"></div>
-                            <span class="progress-text">65%</span>
+                            <div  data-project-info="progress-bar" class="progress-fill" style="width: 65%;"></div>
+                            <span data-project-info="progress" class="progress-text">65%</span>
                         </div>
                     </div>
 
