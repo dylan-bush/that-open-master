@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside id="sidebar">
+        <img id="company-logo" src="./assets/company-logo.svg" alt="Construction Company Logo">
+        <ul id="nav-buttons">
+            <li id="projects-nav-btn">
+                <span class="material-icons-round">
+                    apartment</span>
+                    Projects</li>
+            <li id="process-nav-btn">
+                <span class="material-icons-round">
+                    description</span>
+                    Process</li>
+            <li id="people-nav-btn">
+                <span class="material-icons-round">
+                    people</span>
+                    People</li>
+        </ul>
+    </aside>
+    
+    <main id="content">
+        <!-- PROJECTS PAGE -->
+        <!-- PROJECTS POPUP MODAL -->
+        <div class="page" id="projects-page">  
+            <dialog id="new-project-modal">
+                <form id="new-project-form">
+                    <h2>New Project</h2>
+                    <div class="input-list">
+                        <div class="form-field-container">
+                            <div class="field-label">
+                            <span class="material-icons-round">apartment</span>
+                            <label>Project Name</label>
+                            </div>
+                            
+                            <input name="projectName" type="text" placeholder="Enter a name for the project...">
+                            <p id="project-name-error" class="field-error"></p>
+                            <p class="field-tip">
+                            TIP: This name should be short and descriptive.
+                            </p>
+                        </div>
+    
+                        <div class="form-field-container">
+                            <div class="field-label">
+                            <span class="material-icons-round">text_snippet</span>
+                            <label>Project Description</label>
+                            </div>
+    
+                            <textarea name="projectDescription" cols="30" rows="5" placeholder="Write a brief description of the project..."></textarea>
+                        </div>
+    
+                        <div class="form-field-container">
+                            <div class="field-label">
+                                <span class="material-icons-round">people</span>
+                                <label>Role</label>
+                            </div>
+                            
+                            <select name="projectRole">
+                                <option>Architect</option>
+                                <option>Engineer</option>
+                                <option>Developer</option>
+                            </select>
+                        </div>
+    
+                        <div class="form-field-container">
+                            <div class="field-label">
+                                <span class="material-icons-round">incomplete_circle</span>
+                                <label>Status</label>
+                            </div>
+                            <select name="projectStatus">
+                                <option>Pending</option>
+                                <option>Active</option>
+                                <option>Completed</option>
+                            </select>
+                        </div>
+    
+                         <div class="form-field-container">
+                            <div class="field-label">
+                            <span class="material-icons-round">calendar_month</span>
+                            <label>Target Completion Date</label>
+                            </div>
+                            
+                            <input name="projectCompletionDate" type="date">
+                        </div>
+                    </div>
+    
+    
+                    <div style="display: flex; justify-content: flex-end; gap: 10px; padding: 20px 20px 20px 0px;">
+                        <button id="cancel-project-btn" type="button">Cancel</button>
+                        <button type="submit">Accept</button>
+                    </div>
+
+                </form>
+            </dialog>
+
+            <!-- PROJECTS PAGE CONTENT -->
+            <header>
+                <h2>Projects</h2>
+                <div style="display: flex; align-items: center; column-gap: 10px;">
+                    <span class="material-icons-round" id="export-btn">file_download</span>
+                    <span class="material-icons-round" id="import-btn">file_upload</span>
+                    <button id="new-project-btn"><span class="material-icons-round">add</span> New Project</button>
+                </div>
+            </header>
+            <div id="project-list"></div>
+        </div>
+
+        <!-- PROJECT DETAILS PAGE -->
+        <div class="page hidden" id="project-details">
+            <header>
+                <div>
+                    <h2>Hospital Center</h2>
+                    <p style="color: var(--secondary-200)">Community hospital located downtown</p>
+                </div>
+            </header>
+
+            <div class="main-page-content">
+                <div style="display: flex; flex-direction: column; row-gap: 20px;">
+                    <div class="dashboard-card">
+                        <div class="card-header-2">
+                            <p style="aspect-ratio: 1/1; border-radius: 8px; padding: 10px; background-color: chocolate; font-size: var(--h2-size);">HC</p>
+                            <button class="button-hollow"><span class="material-icons-round">edit</span>Edit</button>
+                        </div>
+                        <div style="margin: 15px 0px;">
+                            <p style="color:var(--text-100); font-weight: 500;">Hospital Center</p>
+                            <p style="color: var(--secondary-200)">Community hospital located downtown</p>
+                        </div>
+                        <div style="display: flex; flex-direction: row; margin: 15px 0px; justify-content: space-between;">
+                            <div style="display: flex; flex-direction: column;">
+                                <p style="color: var(--secondary-200)">Status</p><p>Active</p>
+                            </div>
+                            <div style="display: flex; flex-direction: column;">
+                                <p style="color: var(--secondary-200)">Cost</p><p>$10,000</p>
+                            </div>
+                            <div style="display: flex; flex-direction: column;">
+                                <p style="color: var(--secondary-200)">Role</p><p>Engineer</p>
+                            </div>
+                            <div style="display: flex; flex-direction: column;">
+                                <p style="color: var(--secondary-200)">Finish Date</p><p>2023-12-31</p>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 65%;"></div>
+                            <span class="progress-text">65%</span>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card" style="height: 100%;">
+                        <div class="card-header-2" style="margin-bottom: 20px;">
+                            <p style="color:var(--text-100); font-weight: 500;">To Do</p>
+                            <div style="display: flex; align-items: center;">
+                                <span class="material-icons-round">search</span>
+                                <input type="text" placeholder="Search To-Do's by name" style="padding: 10px; margin: 0 10px;">
+                                <span class="material-icons-round">add_task</span>
+                            </div>
+                        </div>
+
+                        <div class="card-conent">
+                            
+                            
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+
+                                <div class="task-item">
+                                    <div style="display: flex; align-items: center;">
+                                    <span class="material-icons-round task-icon">construction</span>
+                                    <p style="margin:0px 15px;">This is a sample task! Write anything you want here.</p>
+                                    </div>
+                                    <p>Fri, 20 Sep 2023</p>
+                                </div>
+
+                                <div class="task-item">
+                                    <div style="display: flex; align-items: center;">
+                                    <span class="material-icons-round task-icon">construction</span>
+                                    <p style="margin:0px 15px;">This is a sample task! Write anything you want here.</p>
+                                    </div>
+                                    <p>Fri, 20 Sep 2023</p>
+                                </div>
+
+                                <div class="task-item">
+                                    <div style="display: flex; align-items: center;">
+                                    <span class="material-icons-round task-icon">construction</span>
+                                    <p style="margin:0px 15px;">This is a sample task! Write anything you want here.</p>
+                                    </div>
+                                    <p>Fri, 20 Sep 2023</p>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+                    </div>
+
+                </div>
+                <div id="viewer-container" class="dashboard-card"></div>
+            </div>
+
+
+        </div>
+
+        <!-- USERS PAGE -->
+         <!-- PROJECTS POPUP MODAL -->  
+        <div class="page" id="users-page">
+            <dialog id="new-user-modal">
+                <form>
+                    <h2>Add User</h2>
+                    <div class="input-list">
+                        <div class="form-field-container">
+                            <div class="field-label">
+                            <span class="material-icons-round">badge</span>
+                            <label>Name</label>
+                            </div>
+                            
+                            <input type="text">
+                            <p class="field-tip">
+                            TIP: Enter the user's full name.
+                            </p>
+                        </div>
+    
+                        <div class="form-field-container">
+                            <div class="field-label">
+                            <span class="material-icons-round">email</span>
+                            <label>Email Address</label>
+                            </div>
+    
+                            <input type="text" placeholder="email@domain.com">
+                        </div>
+    
+                        <div class="form-field-container">
+                            <div class="field-label">
+                                <span class="material-icons-round">people</span>
+                                <label>Role</label>
+                            </div>
+                            
+                            <select>
+                                <option>Admin</option>
+                                <option>User</option>
+                                <option>Viewer</option>
+                            </select>
+                        </div>
+                    </div>
+    
+    
+                    <div style="display: flex; justify-content: flex-end; gap: 10px; padding: 20px 20px 20px 0px;">
+                        <button>Cancel</button>
+                        <button>Accept</button>
+                    </div>
+    
+                </form>
+            </dialog>
+        <!-- END PROJECTS POPUP MODAL -->
+
+        <!-- USERS PAGE CONTENT -->
+            <header>
+                <div>
+                    <h2>People</h2>
+                    <p style="color: var(--secondary-200)">Add or edit users</p>
+                </div>
+            </header>
+
+            <div class="main-page-content">
+                <div style="display: flex; flex-direction: column; row-gap: 20px;">
+                    <div class="dashboard-card">
+                        <div class="card-header-2" style="margin-bottom: 20px;">
+                            <div  style="display: flex; align-items: center;">
+                                <span class="material-icons-round">search</span>
+                                <input type="text" placeholder="Search user list" style="padding: 10px; margin: 0 10px;">
+                            </div>
+                            <button class="button-hollow"><span class="material-icons-round">add</span>Add User</button>
+                        </div>
+                        <div class="users-table">
+
+                            <div class="users-header">
+                                <p>User</p>
+                                <p>Email</p>
+                                <p>Role</p>
+                                <p>Added</p>
+                                <p>Edit</p>
+                            </div>
+
+                            <div class="users-row">
+                                <p>Dylan</p>
+                                <p>dylan@example.com</p>
+                                <p>Admin</p>
+                                <p>2023-01-01</p>
+                                <span class="material-icons-round">edit</span>
+                            </div>
+                            <div class="users-row">
+                                <p>Sandrine</p>
+                                <p>sandrine@example.com</p>
+                                <p>Admin</p>
+                                <p>2024-03-02</p>
+                                <span class="material-icons-round">edit</span>
+                            </div>
+                            <div class="users-row">
+                                <p>Totoro</p>
+                                <p>totoro@example.com</p>
+                                <p>Admin</p>
+                                <p>2025-05-06</p>
+                                <span class="material-icons-round">edit</span>
+                            </div>
+                            <div class="users-row">
+                                <p>Kikurage</p>
+                                <p>kikurage@example.com</p>
+                                <p>User</p>
+                                <p>2024-08-25</p>
+                                <span class="material-icons-round">edit</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end users  page -->
+
+    </main>
+    <script type="module" src="./src/index.ts"></script>
+
+    <!-- ERROR MESSAGES -->
+
+    <!-- <div id="error-message" class="error-popup"></div> -->
+
+</body>
+</html>

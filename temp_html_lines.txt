@@ -1,0 +1,180 @@
+﻿ 105:                 <div>
+ 106:                     <button id="new-project-btn"><span class="material-icons-round">add</span> New Project</button>
+ 107:                 </div>
+ 108:             </header>
+ 109:             <div id="project-list">
+ 110:                 <div class="project-card">
+ 111:                     <div class="card-header">
+ 112:                         <p style="aspect-ratio: 1/1; border-radius: 8px; padding: 10px; background-color: chocolate; font-size: var(--h2-size);">HC</p>
+ 113:                         <div>
+ 114:                             <h3>Project Name</h3>
+ 115:                             <p>Project Description</p>
+ 116:                         </div>
+ 117:                     </div>
+ 118:                     <div class="card-content">
+ 119:                         <div class="card-property">
+ 120:                             <p class="property-name">Status</p>
+ 121:                             <p>Active</p>
+ 122:                         </div>
+ 123:                         <div class="card-property">
+ 124:                             <p class="property-name">Role</p>
+ 125:                             <p>Engineer</p>
+ 126:                         </div>
+ 127:                         <div class="card-property">
+ 128:                             <p class="property-name">Cost</p>
+ 129:                             <p>$10,000</p>
+ 130:                         </div>
+ 131:                         <div class="card-property">
+ 132:                             <p class="property-name">Estimated Progress</p>
+ 133:                             <p>75%</p>
+ 134:                         </div>
+ 135:                     </div>
+ 136:                     
+ 137:                 </div>
+ 138: [REPLACED]
+ 139:                 <div class="project-card">
+ 140:                     <div class="card-header">
+ 141:                         <p style="aspect-ratio: 1/1; border-radius: 8px; padding: 10px; background-color: chocolate; font-size: var(--h2-size);">HC</p>
+ 142:                         <div>
+ 143:                             <h3>Project Name</h3>
+ 144:                             <p>Project Description</p>
+ 145:                         </div>
+ 146:                     </div>
+ 147:                     <div class="card-content">
+ 148:                         <div class="card-property">
+ 149:                             <p class="property-name">Status</p>
+ 150:                             <p>Active</p>
+ 151:                         </div>
+ 152:                         <div class="card-property">
+ 153:                             <p class="property-name">Role</p>
+ 154:                             <p>Engineer</p>
+ 155:                         </div>
+ 156:                         <div class="card-property">
+ 157:                             <p class="property-name">Cost</p>
+ 158:                             <p>$10,000</p>
+ 159:                         </div>
+ 160:                         <div class="card-property">
+ 161:                             <p class="property-name">Estimated Progress</p>
+ 162:                             <p>75%</p>
+ 163:                         </div>
+ 164:                     </div>
+ 165:                     
+ 166:                 </div>
+ 167:                 <div class="project-card">
+ 168:                     <div class="card-header">
+ 169:                         <p style="aspect-ratio: 1/1; border-radius: 8px; padding: 10px; background-color: rgb(138, 30, 210); font-size: var(--h2-size);">HC</p>
+ 170:                         <div>
+ 171:                             <h3>Project Name</h3>
+ 172:                             <p>Project Description</p>
+ 173:                         </div>
+ 174:                     </div>
+ 175:                     <div class="card-content">
+ 176:                         <div class="card-property">
+ 177:                             <p class="property-name">Status</p>
+ 178:                             <p>Active</p>
+ 179:                         </div>
+ 180:                         <div class="card-property">
+ 181:                             <p class="property-name">Role</p>
+ 182:                             <p>Engineer</p>
+ 183:                         </div>
+ 184:                         <div class="card-property">
+ 185:                             <p class="property-name">Cost</p>
+ 186:                             <p>$10,000</p>
+ 187:                         </div>
+ 188:                         <div class="card-property">
+ 189:                             <p class="property-name">Estimated Progress</p>
+ 190:                             <p>75%</p>
+ 191:                         </div>
+ 192:                     </div>
+ 193:                     
+ 194:                 </div>
+ 195:                 <div class="project-card">
+ 196:                     <div class="card-header">
+ 197:                         <p style="aspect-ratio: 1/1; border-radius: 8px; padding: 10px; background-color: chocolate; font-size: var(--h2-size);">HC</p>
+ 198:                         <div>
+ 199:                             <h3>Project Name</h3>
+ 200:                             <p>Project Description</p>
+ 201:                         </div>
+ 202:                     </div>
+ 203:                     <div class="card-content">
+ 204:                         <div class="card-property">
+ 205:                             <p class="property-name">Status</p>
+ 206:                             <p>Active</p>
+ 207:                         </div>
+ 208:                         <div class="card-property">
+ 209:                             <p class="property-name">Role</p>
+ 210:                             <p>Engineer</p>
+ 211:                         </div>
+ 212:                         <div class="card-property">
+ 213:                             <p class="property-name">Cost</p>
+ 214:                             <p>$10,000</p>
+ 215:                         </div>
+ 216:                         <div class="card-property">
+ 217:                             <p class="property-name">Estimated Progress</p>
+ 218:                             <p>75%</p>
+ 219:                         </div>
+ 220:                     </div>
+ 221:                     
+ 222:                 </div>
+ 223:                 <div class="project-card">
+ 224:                     <div class="card-header">
+ 225:                         <p style="aspect-ratio: 1/1; border-radius: 8px; padding: 10px; background-color: chocolate; font-size: var(--h2-size);">HC</p>
+ 226:                         <div>
+ 227:                             <h3>Project Name</h3>
+ 228:                             <p>Project Description</p>
+ 229:                         </div>
+ 230:                     </div>
+ 231:                     <div class="card-content">
+ 232:                         <div class="card-property">
+ 233:                             <p class="property-name">Status</p>
+ 234:                             <p>Active</p>
+ 235:                         </div>
+ 236:                         <div class="card-property">
+ 237:                             <p class="property-name">Role</p>
+ 238:                             <p>Engineer</p>
+ 239:                         </div>
+ 240:                         <div class="card-property">
+ 241:                             <p class="property-name">Cost</p>
+ 242:                             <p>$10,000</p>
+ 243:                         </div>
+ 244:                         <div class="card-property">
+ 245:                             <p class="property-name">Estimated Progress</p>
+ 246:                             <p>75%</p>
+ 247:                         </div>
+ 248:                     </div>
+ 249:                     
+ 250:                 </div>
+ 251:                 <div class="project-card">
+ 252:                     <div class="card-header">
+ 253:                         <p style="aspect-ratio: 1/1; border-radius: 8px; padding: 10px; background-color: rgb(30, 210, 135); font-size: var(--h2-size);">HC</p>
+ 254:                         <div>
+ 255:                             <h3>Project Name</h3>
+ 256:                             <p>Project Description</p>
+ 257:                         </div>
+ 258:                     </div>
+ 259:                     <div class="card-content">
+ 260:                         <div class="card-property">
+ 261:                             <p class="property-name">Status</p>
+ 262:                             <p>Active</p>
+ 263:                         </div>
+ 264:                         <div class="card-property">
+ 265:                             <p class="property-name">Role</p>
+ 266:                             <p>Engineer</p>
+ 267:                         </div>
+ 268:                         <div class="card-property">
+ 269:                             <p class="property-name">Cost</p>
+ 270:                             <p>$10,000</p>
+ 271:                         </div>
+ 272:                         <div class="card-property">
+ 273:                             <p class="property-name">Estimated Progress</p>
+ 274:                             <p>75%</p>
+ 275:                         </div>
+ 276:                     </div>
+ 277:                     
+ 278:                 </div>
+ 279:             </div>
+ 280:         </div>
+ 281: 
+ 282:         <!-- PROJECT DETAILS PAGE -->
+ 283:         <div class="page" id="project-details">
+ 284:             <header>
