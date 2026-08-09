@@ -35,7 +35,7 @@ constructor(formData: IProject) {
     this.id = uuidv4();
     this.setUI();
 }
-
+    //Creates the project card UI and sets the innerHTML of the card with the project details.
     setUI() {
         if(this.ui) {return}
         //Project card ui
