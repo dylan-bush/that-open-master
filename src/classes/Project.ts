@@ -24,6 +24,7 @@ export class Project implements IProject {
     cost: number = 500; // Default cost, can be modified later
     progress: number = 0; // Default progress, can be modified later
     id: string;
+    projectColor: string = "chocolate"; // Default color, can be modified later
 
 constructor(formData: IProject) {
     for (const key in formData) {
@@ -38,13 +39,18 @@ constructor(formData: IProject) {
     //Creates the project card UI and sets the innerHTML of the card with the project details.
     setUI() {
         if(this.ui) {return}
+        // Set project color from random array
+        const projectColors = ["chocolate", "slategray", "steelblue", "lightcoral", "seagreen", "mediumorchid"];
+        const randomColorIndex = Math.floor(Math.random() * projectColors.length);
+        this.projectColor = projectColors[randomColorIndex];
+        
         //Project card ui
         this.ui = document.createElement("div");
         this.ui.className = "project-card";
         this.ui.innerHTML = `
         <div class="project-card">
             <div class="card-header">
-                <p style="aspect-ratio: 1/1; border-radius: 8px; padding: 10px; background-color: chocolate; font-size: var(--h2-size);">HC</p>
+                <p class="project-icon" style="background-color: ${this.projectColor};">${this.projectName.slice(0, 2)}</p>
                 <div>
                     <h3>${this.projectName}</h3>
                     <p>${this.projectDescription}</p>

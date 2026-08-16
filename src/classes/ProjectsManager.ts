@@ -9,6 +9,7 @@ export class ProjectsManager {
     }
 
     newProject(projectData: IProject) {
+        projectData.projectName = projectData.projectName.trim()
         const projectNames = this.list.map((project) => {
             return project.projectName
         })
@@ -16,6 +17,12 @@ export class ProjectsManager {
         if (projectNameExists) {
             throw new Error(`Project with name ${projectData.projectName} already exists`);
         }
+
+        const projectNameLength = projectData.projectName.length;
+        if (projectNameLength < 5 || projectNameLength > 100) {
+            throw new Error(`Project name must be between 5 and 100 characters`);
+        }
+
         const project = new Project(projectData);
         project.ui.addEventListener("click", () => {
             const projectsPage = document.getElementById("projects-page");

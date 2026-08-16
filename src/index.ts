@@ -13,6 +13,14 @@ function toggleModal(id: string) {
     }
 }
 
+function clearProjectFormErrors() {
+  const projectNameError = document.getElementById("project-name-error")
+  if (projectNameError) {
+    projectNameError.textContent = ""
+    projectNameError.classList.remove("visible")
+  }
+}
+
 const projectsListUI = document.getElementById("project-list") as HTMLElement; 
 const projectsManager = new ProjectsManager(projectsListUI);
 
@@ -43,7 +51,10 @@ else {
 const cancelProjectBtn = document.getElementById("cancel-project-btn");
 
 if (cancelProjectBtn) {
-    cancelProjectBtn.addEventListener("click", () => {toggleModal("new-project-modal")});
+    cancelProjectBtn.addEventListener("click", () => {
+        clearProjectFormErrors()
+        toggleModal("new-project-modal")
+})
 }
 else {
     console.warn("Cancel Project button not found");
@@ -59,6 +70,12 @@ if (projectForm instanceof HTMLFormElement) {
         //creating a new instance of a FormData object
         //error on projectForm because it is of type HTMLElement, we need to validate it as HTMLFormElement
         const formData = new FormData(projectForm);
+
+        //Set default date to one year from now if no date is provided
+        const dateInput = formData.get("projectCompletionDate") as string;
+        const defaultDate = new Date();
+        defaultDate.setFullYear(defaultDate.getFullYear() + 1);
+
         //const projectData = Object.fromEntries(formData.entries());
         /*SYNTAX EXPLANATION: 
         the use of "IProject" specifies the interface that is being used to define the shape and requirements of the object being created.
@@ -66,11 +83,11 @@ if (projectForm instanceof HTMLFormElement) {
         For the date, I'm not sure why we have to use "as string" and then convert it to a Date object, but it seems to be necessary for the code to work correctly.
         */
         const projectData: IProject = {
-            projectName: formData.get("projectName") as string,
+            projectName: (formData.get("projectName") as string),
             projectDescription: formData.get("projectDescription") as string,
             projectStatus: formData.get("projectStatus") as ProjectStatus,
             projectRole: formData.get("projectRole") as ProjectRole,
-            projectCompletionDate: new Date(formData.get("projectCompletionDate") as string)
+            projectCompletionDate: dateInput ? new Date(dateInput) : defaultDate
         };
 
         //create a new instance of the Project class we created in project.js
@@ -80,6 +97,7 @@ if (projectForm instanceof HTMLFormElement) {
         try {
             const project = projectsManager.newProject(projectData);
             //console.log("Project Data: ", projectData);
+            clearProjectFormErrors();
             projectForm.reset();
             console.log(project);
             toggleModal("new-project-modal");

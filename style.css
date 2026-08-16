@@ -177,6 +177,15 @@ header {
     /* height: 60px; */
 }
 
+.project-icon {
+  text-transform: uppercase;
+  aspect-ratio: 1/1;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: var(--h2-size);
+  background-color: chocolate;
+}
+
 .card-content {
     padding: 30px 20px;
     display: flex;
