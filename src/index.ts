@@ -1,4 +1,5 @@
 //THIS FILE wires DOM elements to behavior, like buttons, forms, and modals
+//The Document Object Model (DOM) connects web pages to scripts or programming languages by representing the structure of a document—such as the HTML representing a web page—in memory.
 
 import { Project, IProject, ProjectStatus, ProjectRole } from "./classes/Project";
 import { ProjectsManager } from "./classes/ProjectsManager"
@@ -66,7 +67,20 @@ else {
 const editProjectBtn = document.getElementById("edit-project-btn");
 
 if (editProjectBtn) {
-    editProjectBtn.addEventListener("click", () => {toggleModal("edit-project-modal")});
+    editProjectBtn.addEventListener("click", () => {
+        const selectedProject = projectsManager.selectedProject;
+        if (!selectedProject) {
+            console.warn("No project selected for editing");
+            return;
+        }
+        //prefill the edit project form with the selected project's data
+        const editProjectForm = document.getElementById("edit-project-form") as HTMLFormElement;
+        editProjectForm.querySelector("input[name='projectName']")!.value = selectedProject.projectName;
+        editProjectForm.querySelector("textarea[name='projectDescription']")!.value = selectedProject.projectDescription;
+        editProjectForm.querySelector("select[name='projectStatus']")!.value = selectedProject.projectStatus;
+        editProjectForm.querySelector("select[name='projectRole']")!.value = selectedProject.projectRole;
+        editProjectForm.querySelector("input[name='projectCompletionDate']")!.value = selectedProject.projectCompletionDate.toISOString().split("T")[0];
+        toggleModal("edit-project-modal")});
 }
 else {
     console.warn("Edit Project button not found");
@@ -87,55 +101,79 @@ else {
 
 //get form data
 const projectForm = document.getElementById("new-project-form");
-if (projectForm instanceof HTMLFormElement) {
-    projectForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        //create object based on a class using 'new' keyword
-        //creating a new instance of a FormData object
-        //error on projectForm because it is of type HTMLElement, we need to validate it as HTMLFormElement
-        const formData = new FormData(projectForm);
+    if (projectForm instanceof HTMLFormElement) {
+        projectForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            //create object based on a class using 'new' keyword
+            //creating a new instance of a FormData object
+            //error on projectForm because it is of type HTMLElement, we need to validate it as HTMLFormElement
+            const formData = new FormData(projectForm);
 
-        //Set default date to one year from now if no date is provided
-        const dateInput = formData.get("projectCompletionDate") as string;
-        const defaultDate = new Date();
-        defaultDate.setFullYear(defaultDate.getFullYear() + 1);
+            //Set default date to one year from now if no date is provided
+            const dateInput = formData.get("projectCompletionDate") as string;
+            const defaultDate = new Date();
+            defaultDate.setFullYear(defaultDate.getFullYear() + 1);
 
-        //const projectData = Object.fromEntries(formData.entries());
-        /*SYNTAX EXPLANATION: 
-        the use of "IProject" specifies the interface that is being used to define the shape and requirements of the object being created.
-        the "as" keyword is used for Type Assertion, which tells the script to treat the value of the "formData.get()" method as a specific data type, such as string.
-        For the date, I'm not sure why we have to use "as string" and then convert it to a Date object, but it seems to be necessary for the code to work correctly.
-        */
-        const projectData: IProject = {
-            projectName: (formData.get("projectName") as string),
-            projectDescription: formData.get("projectDescription") as string,
-            projectStatus: formData.get("projectStatus") as ProjectStatus,
-            projectRole: formData.get("projectRole") as ProjectRole,
-            projectCompletionDate: dateInput ? new Date(dateInput) : defaultDate
-        };
+            //const projectData = Object.fromEntries(formData.entries());
+            /*SYNTAX EXPLANATION: 
+            the use of "IProject" specifies the interface that is being used to define the shape and requirements of the object being created.
+            the "as" keyword is used for Type Assertion, which tells the script to treat the value of the "formData.get()" method as a specific data type, such as string.
+            For the date, I'm not sure why we have to use "as string" and then convert it to a Date object, but it seems to be necessary for the code to work correctly.
+            */
+            const projectData: IProject = {
+                projectName: (formData.get("projectName") as string),
+                projectDescription: formData.get("projectDescription") as string,
+                projectStatus: formData.get("projectStatus") as ProjectStatus,
+                projectRole: formData.get("projectRole") as ProjectRole,
+                projectCompletionDate: dateInput ? new Date(dateInput) : defaultDate
+            };
 
-        //create a new instance of the Project class we created in project.js
-        //we pass the project name from the form data to the constructor of the Project class
-        const projectNameError = document.getElementById("project-name-error");
+            //create a new instance of the Project class we created in project.ts
+            //we pass the project name from the form data to the constructor of the Project class
+            const projectNameError = document.getElementById("project-name-error");
 
-        try {
-            const project = projectsManager.newProject(projectData);
-            //console.log("Project Data: ", projectData);
-            clearProjectFormErrors();
-            projectForm.reset();
-            console.log(project);
-            toggleModal("new-project-modal");
-        } catch (error) {
-            if (projectNameError) {
-                projectNameError.textContent = String(error);
-                projectNameError.classList.add("visible");
+            try {
+                const project = projectsManager.newProject(projectData);
+                //console.log("Project Data: ", projectData);
+                clearProjectFormErrors();
+                projectForm.reset();
+                console.log(project);
+                toggleModal("new-project-modal");
+            } catch (error) {
+                if (projectNameError) {
+                    projectNameError.textContent = String(error);
+                    projectNameError.classList.add("visible");
+                }
             }
-        }
-        
-    })
-} else {
-    console.warn("New Project form not found");
+            
+        })
+    } else {
+        console.warn("New Project form not found");
 }
+
+//Get form data for edit project form
+const editProjectForm = document.getElementById("edit-project-form");
+if (editProjectForm instanceof HTMLFormElement) {
+    editProjectForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const selectedProject = projectsManager.selectedProject;
+        if (!selectedProject) {
+            console.warn("No project selected for editing");
+            return;
+        }
+        //read form data and update the selected project
+        const formData = new FormData(editProjectForm);
+        selectedProject.projectName = formData.get("projectName") as string;
+        selectedProject.projectDescription = formData.get("projectDescription") as string;
+        selectedProject.projectStatus = formData.get("projectStatus") as ProjectStatus;
+        selectedProject.projectRole = formData.get("projectRole") as ProjectRole;
+        const dateInput = formData.get("projectCompletionDate") as string;
+        selectedProject.projectCompletionDate = dateInput ? new Date(dateInput) : selectedProject.projectCompletionDate;
+    })
+}
+        
+
+
 
 const exportBtn = document.getElementById("export-btn");
 if (exportBtn) {
