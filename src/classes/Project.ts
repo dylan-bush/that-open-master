@@ -1,3 +1,5 @@
+//THIS FILE represents one project and its card UI
+
 import { v4 as uuidv4 } from 'uuid'
 
 export type ProjectStatus = "pending" | "active" | "completed";

@@ -1,8 +1,11 @@
+//THIS FILE manages the list of projects and their UI cards, owns the project collection and project-related app state
+
 import { IProject, Project } from "./Project";
 
 export class ProjectsManager {
     list: Project[] = [];
     ui: HTMLElement
+    selectedProject: Project | null = null;
 
     constructor(container: HTMLElement) {
         this.ui = container;
@@ -25,6 +28,7 @@ export class ProjectsManager {
 
         const project = new Project(projectData);
         project.ui.addEventListener("click", () => {
+            this.selectedProject = project;
             const projectsPage = document.getElementById("projects-page");
             const detailsPage = document.getElementById("project-details");
             if (!projectsPage || !detailsPage) { return }

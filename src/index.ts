@@ -1,3 +1,5 @@
+//THIS FILE wires DOM elements to behavior, like buttons, forms, and modals
+
 import { Project, IProject, ProjectStatus, ProjectRole } from "./classes/Project";
 import { ProjectsManager } from "./classes/ProjectsManager"
 
@@ -60,6 +62,28 @@ else {
     console.warn("Cancel Project button not found");
 }
 
+//get edit project button by ID
+const editProjectBtn = document.getElementById("edit-project-btn");
+
+if (editProjectBtn) {
+    editProjectBtn.addEventListener("click", () => {toggleModal("edit-project-modal")});
+}
+else {
+    console.warn("Edit Project button not found");
+}
+
+//get cancel edit project button by ID
+const cancelEditProjectBtn = document.getElementById("cancel-edit-project-btn");
+
+if (cancelEditProjectBtn) {
+    cancelEditProjectBtn.addEventListener("click", () => {
+        clearProjectFormErrors()
+        toggleModal("edit-project-modal")
+})
+}
+else {
+    console.warn("Cancel Edit Project button not found");
+}
 
 //get form data
 const projectForm = document.getElementById("new-project-form");

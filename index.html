@@ -113,7 +113,82 @@
         </div>
 
         <!-- PROJECT DETAILS PAGE -->
+
         <div class="page hidden" id="project-details">
+            <!-- EDIT PROJECT MODAL -->
+            <dialog id="edit-project-modal">
+                <form id="edit-project-form">
+                    <h2>Edit Project</h2>
+                    <div class="input-list">
+                        <div class="form-field-container">
+                            <div class="field-label">
+                            <span class="material-icons-round">apartment</span>
+                            <label>Project Name</label>
+                            </div>
+                            
+                            <input name="projectName" type="text" placeholder="Enter a name for the project...">
+                            <p id="project-name-error" class="field-error"></p>
+                            <p class="field-tip">
+                            TIP: This name should be short and descriptive.
+                            </p>
+                        </div>
+    
+                        <div class="form-field-container">
+                            <div class="field-label">
+                            <span class="material-icons-round">text_snippet</span>
+                            <label>Project Description</label>
+                            </div>
+    
+                            <textarea name="projectDescription" cols="30" rows="5" placeholder="Write a brief description of the project..."></textarea>
+                        </div>
+    
+                        <div class="form-field-container">
+                            <div class="field-label">
+                                <span class="material-icons-round">people</span>
+                                <label>Role</label>
+                            </div>
+                            
+                            <select name="projectRole">
+                                <option>Architect</option>
+                                <option>Engineer</option>
+                                <option>Developer</option>
+                            </select>
+                        </div>
+    
+                        <div class="form-field-container">
+                            <div class="field-label">
+                                <span class="material-icons-round">incomplete_circle</span>
+                                <label>Status</label>
+                            </div>
+                            <select name="projectStatus">
+                                <option>Pending</option>
+                                <option>Active</option>
+                                <option>Completed</option>
+                            </select>
+                        </div>
+    
+                         <div class="form-field-container">
+                            <div class="field-label">
+                            <span class="material-icons-round">calendar_month</span>
+                            <label>Target Completion Date</label>
+                            </div>
+                            
+                            <input name="projectCompletionDate" type="date">
+                        </div>
+                    </div>
+    
+    
+                    <div style="display: flex; justify-content: flex-end; gap: 10px; padding: 20px 20px 20px 0px;">
+                        <button id="cancel-edit-project-btn" type="button">Cancel</button>
+                        <button type="submit">Accept</button>
+                    </div>
+
+                </form>
+            </dialog>
+            <!-- END EDIT PROJECT MODAL -->
+
+
+        <!-- PROJECT DETAILS PAGE CONTENT -->
             <header>
                 <div>
                     <h2 data-project-info="name">Hospital Center</h2>
@@ -126,7 +201,7 @@
                     <div class="dashboard-card">
                         <div class="card-header-2">
                             <p class="project-icon">HC</p>
-                            <button class="button-hollow"><span class="material-icons-round">edit</span>Edit</button>
+                            <button id="edit-project-btn" class="button-hollow"><span class="material-icons-round">edit</span>Edit</button>
                         </div>
                         <div style="margin: 15px 0px;">
                             <p data-project-info="name" style="color:var(--text-100); font-weight: 500;">Hospital Center</p>
@@ -209,7 +284,7 @@
         </div>
 
         <!-- USERS PAGE -->
-         <!-- PROJECTS POPUP MODAL -->  
+        <!-- NEW USER MODAL -->  
         <div class="page" id="users-page">
             <dialog id="new-user-modal">
                 <form>
@@ -276,7 +351,7 @@
                                 <span class="material-icons-round">search</span>
                                 <input type="text" placeholder="Search user list" style="padding: 10px; margin: 0 10px;">
                             </div>
-                            <button class="button-hollow"><span class="material-icons-round">add</span>Add User</button>
+                            <button id="new-user-btn" class="button-hollow"><span class="material-icons-round">add</span>Add User</button>
                         </div>
                         <div class="users-table">
 
