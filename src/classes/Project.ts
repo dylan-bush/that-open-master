@@ -1,4 +1,5 @@
 //THIS FILE represents one project and its card UI
+//The Project class implements the IProject interface, which defines the structure of a project object. The Project class also includes additional properties and methods for managing the project's UI representation and internal state.
 
 import { v4 as uuidv4 } from 'uuid'
 
@@ -28,16 +29,16 @@ export class Project implements IProject {
     id: string;
     projectColor: string = "chocolate"; // Default color, can be modified later
 
-constructor(formData: IProject) {
-    for (const key in formData) {
-        if (key === "ui") { continue; }
+    constructor(formData: IProject) {
+        for (const key in formData) {
+            if (key === "ui") { continue; }
 
-        this[key] = formData[key];
+            this[key] = formData[key];
+        }
+
+        this.id = uuidv4();
+        this.setUI();
     }
-
-    this.id = uuidv4();
-    this.setUI();
-}
     //Creates the project card UI and sets the innerHTML of the card with the project details.
     setUI() {
         if(this.ui) {return}
@@ -52,32 +53,53 @@ constructor(formData: IProject) {
         this.ui.innerHTML = `
         <div class="project-card">
             <div class="card-header">
-                <p class="project-icon" style="background-color: ${this.projectColor};">${this.projectName.slice(0, 2)}</p>
+                <p class="project-icon" data-project-card-info="icon" style="background-color: ${this.projectColor};">${this.projectName.slice(0, 2)}</p>
                 <div>
-                    <h3>${this.projectName}</h3>
-                    <p>${this.projectDescription}</p>
+                    <h3 data-project-card-info="name">${this.projectName}</h3>
+                    <p data-project-card-info="description">${this.projectDescription}</p>
                 </div>
             </div>
             <div class="card-content">
                 <div class="card-property">
                     <p class="property-name">Status</p>
-                    <p>${this.projectStatus}</p>
+                    <p data-project-card-info="status">${this.projectStatus}</p>
                 </div>
                 <div class="card-property">
                     <p class="property-name">Role</p>
-                    <p>${this.projectRole}</p>
+                    <p data-project-card-info="role">${this.projectRole}</p>
                 </div>
                 <div class="card-property">
                     <p class="property-name">Cost</p>
-                    <p>$${this.cost}</p>
+                    <p data-project-card-info="cost">$${this.cost}</p>
                 </div>
                 <div class="card-property">
                     <p class="property-name">Estimated Progress</p>
-                    <p>${this.progress * 100}%</p>
+                    <p data-project-card-info="progress">${this.progress * 100}%</p>
                 </div>
             </div>
             
         </div>
         `;
+    }
+
+    //This method updates the project card UI with the latest project details. It is called whenever the project details are updated, such as when the user edits the project information.
+    updateUI() {
+        if (!this.ui) { return }
+        const icon = this.ui.querySelector("[data-project-card-info='icon']");
+        const name = this.ui.querySelector("[data-project-card-info='name']");
+        const description = this.ui.querySelector("[data-project-card-info='description']");
+        const status = this.ui.querySelector("[data-project-card-info='status']");
+        const role = this.ui.querySelector("[data-project-card-info='role']");
+        const cost = this.ui.querySelector("[data-project-card-info='cost']");
+        const progress = this.ui.querySelector("[data-project-card-info='progress']");
+
+        if (icon) { icon.textContent = this.projectName.slice(0, 2) }
+        if (name) name.textContent = this.projectName;
+        if (description) description.textContent = this.projectDescription;
+        if (status) status.textContent = this.projectStatus;
+        if (role) role.textContent = this.projectRole;
+        if (cost) cost.textContent = `$${this.cost}`;
+        if (progress) progress.textContent = `${this.progress * 100}%`;
+
     }
 }

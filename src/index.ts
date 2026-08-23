@@ -22,6 +22,12 @@ function clearProjectFormErrors() {
     projectNameError.textContent = ""
     projectNameError.classList.remove("visible")
   }
+
+  const editProjectNameError = document.getElementById("edit-project-name-error")
+  if (editProjectNameError) {
+    editProjectNameError.textContent = ""
+    editProjectNameError.classList.remove("visible")
+  }
 }
 
 const projectsListUI = document.getElementById("project-list") as HTMLElement; 
@@ -80,6 +86,7 @@ if (editProjectBtn) {
         editProjectForm.querySelector("select[name='projectStatus']")!.value = selectedProject.projectStatus;
         editProjectForm.querySelector("select[name='projectRole']")!.value = selectedProject.projectRole;
         editProjectForm.querySelector("input[name='projectCompletionDate']")!.value = selectedProject.projectCompletionDate.toISOString().split("T")[0];
+        clearProjectFormErrors()
         toggleModal("edit-project-modal")});
 }
 else {
@@ -163,12 +170,41 @@ if (editProjectForm instanceof HTMLFormElement) {
         }
         //read form data and update the selected project
         const formData = new FormData(editProjectForm);
-        selectedProject.projectName = formData.get("projectName") as string;
-        selectedProject.projectDescription = formData.get("projectDescription") as string;
-        selectedProject.projectStatus = formData.get("projectStatus") as ProjectStatus;
-        selectedProject.projectRole = formData.get("projectRole") as ProjectRole;
-        const dateInput = formData.get("projectCompletionDate") as string;
-        selectedProject.projectCompletionDate = dateInput ? new Date(dateInput) : selectedProject.projectCompletionDate;
+   
+
+        const projectNameError = document.getElementById("edit-project-name-error");
+        const editedProjectName = (formData.get("projectName") as string).trim();
+        //update the UI of the selected project, checking for errors
+        try {
+            //validate the edited project name
+            const projectNames = projectsManager.list.map((project) => project.projectName);
+            const projectNameExists = projectNames.includes(editedProjectName) && editedProjectName !== selectedProject.projectName;
+            if (projectNameExists) {
+                throw new Error("A project with this name already exists.");
+            }
+            const projectNameLength = editedProjectName.length;
+            if (projectNameLength < 5 || projectNameLength > 100) {
+                throw new Error("Project name must be between 5 and 100 characters.");
+            }
+
+            //update the selected project with the new data from the form
+            selectedProject.projectName = formData.get("projectName") as string;
+            selectedProject.projectDescription = formData.get("projectDescription") as string;
+            selectedProject.projectStatus = formData.get("projectStatus") as ProjectStatus;
+            selectedProject.projectRole = formData.get("projectRole") as ProjectRole;
+            const dateInput = formData.get("projectCompletionDate") as string;
+            selectedProject.projectCompletionDate = dateInput ? new Date(dateInput) : selectedProject.projectCompletionDate;
+
+            selectedProject.updateUI();
+            projectsManager.updateDetailsPage();
+            clearProjectFormErrors();
+            toggleModal("edit-project-modal");
+        } catch (error) {
+            if (projectNameError) {
+                projectNameError.textContent = String(error);
+                projectNameError.classList.add("visible");
+            }
+        }
     })
 }
         

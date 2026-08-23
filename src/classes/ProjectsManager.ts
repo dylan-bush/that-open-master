@@ -44,6 +44,7 @@ export class ProjectsManager {
     private setDetailsPage(project: Project) {
         const detailsPage = document.getElementById("project-details");
         if (!detailsPage) { return }
+        const icon = detailsPage.querySelector("[data-project-info='icon']");
         const name = detailsPage.querySelectorAll("[data-project-info='name']");
         const description = detailsPage.querySelectorAll("[data-project-info='description']");
         const status = detailsPage.querySelector("[data-project-info='status']");
@@ -52,6 +53,8 @@ export class ProjectsManager {
         const finishDate = detailsPage.querySelector("[data-project-info='finish-date']");
         const progress = detailsPage.querySelector("[data-project-info='progress']");
         const progressBar = detailsPage.querySelector("[data-project-info='progress-bar']");
+
+        if (icon) { icon.textContent = project.projectName.slice(0, 2) }
         if (name) { name.forEach((el) => { el.textContent = project.projectName }) }
         if (description) { description.forEach((el) => { el.textContent = project.projectDescription }) }
         if (status) { status.textContent = project.projectStatus }
@@ -60,6 +63,11 @@ export class ProjectsManager {
         if (finishDate) { finishDate.textContent = project.projectCompletionDate.toLocaleDateString() }
         if (progress) { progress.textContent = `${project.progress * 100}%` }
         if (progressBar) { progressBar.style.width = `${project.progress * 100}%` }
+    }
+
+    updateDetailsPage() {
+    if (!this.selectedProject) { return }
+    this.setDetailsPage(this.selectedProject)
     }
 
     getProject(id: string) {

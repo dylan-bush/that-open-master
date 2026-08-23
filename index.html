@@ -28,8 +28,10 @@
     
     <main id="content">
         <!-- PROJECTS PAGE -->
-        <!-- PROJECTS POPUP MODAL -->
+        
         <div class="page" id="projects-page">  
+
+            <!-- PROJECTS POPUP MODAL -->
             <dialog id="new-project-modal">
                 <form id="new-project-form">
                     <h2>New Project</h2>
@@ -99,6 +101,7 @@
 
                 </form>
             </dialog>
+            <!-- END PROJECTS POPUP MODAL -->
 
             <!-- PROJECTS PAGE CONTENT -->
             <header>
@@ -127,7 +130,7 @@
                             </div>
                             
                             <input name="projectName" type="text" placeholder="Enter a name for the project...">
-                            <p id="project-name-error" class="field-error"></p>
+                            <p id="edit-project-name-error" class="field-error"></p>
                             <p class="field-tip">
                             TIP: This name should be short and descriptive.
                             </p>
@@ -200,7 +203,7 @@
                 <div style="display: flex; flex-direction: column; row-gap: 20px;">
                     <div class="dashboard-card">
                         <div class="card-header-2">
-                            <p class="project-icon">HC</p>
+                            <p data-project-info="icon" class="project-icon">HC</p>
                             <button id="edit-project-btn" class="button-hollow"><span class="material-icons-round">edit</span>Edit</button>
                         </div>
                         <div style="margin: 15px 0px;">
