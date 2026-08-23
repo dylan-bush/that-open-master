@@ -177,8 +177,10 @@ if (editProjectForm instanceof HTMLFormElement) {
         //update the UI of the selected project, checking for errors
         try {
             //validate the edited project name
-            const projectNames = projectsManager.list.map((project) => project.projectName);
-            const projectNameExists = projectNames.includes(editedProjectName) && editedProjectName !== selectedProject.projectName;
+            //const projectNames = projectsManager.list.map((project) => project.projectName);
+            const projectNameExists = projectsManager.list.some((project) => {
+                return project.projectName === editedProjectName && project.id !== selectedProject.id;
+                });
             if (projectNameExists) {
                 throw new Error("A project with this name already exists.");
             }
@@ -188,7 +190,7 @@ if (editProjectForm instanceof HTMLFormElement) {
             }
 
             //update the selected project with the new data from the form
-            selectedProject.projectName = formData.get("projectName") as string;
+            selectedProject.projectName = editedProjectName;
             selectedProject.projectDescription = formData.get("projectDescription") as string;
             selectedProject.projectStatus = formData.get("projectStatus") as ProjectStatus;
             selectedProject.projectRole = formData.get("projectRole") as ProjectRole;

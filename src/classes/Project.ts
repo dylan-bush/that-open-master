@@ -1,17 +1,26 @@
 //THIS FILE represents one project and its card UI
-//The Project class implements the IProject interface, which defines the structure of a project object. The Project class also includes additional properties and methods for managing the project's UI representation and internal state.
+//Defines the shape of a project object / a projects data
+//The Project class implements the IProject interface, which defines the structure of a project object. 
 
 import { v4 as uuidv4 } from 'uuid'
 
 export type ProjectStatus = "pending" | "active" | "completed";
 export type ProjectRole = "architect" | "engineer" | "developer";
 
+//The IProject interface defines the structure of a project object, including its name, description, status, role, and completion date. 
+//The Project class implements this interface and adds additional properties and methods for managing the project's UI representation and internal state.
 export interface IProject {
     projectName: string;
     projectDescription: string;
     projectStatus: ProjectStatus;
     projectRole: ProjectRole;
     projectCompletionDate: Date;
+}
+
+//The IToDo interface defines the structure of a to-do item, including its description and date.
+export interface IToDo {
+    description: string;
+    date: Date;
 }
 
 export class Project implements IProject {
@@ -21,6 +30,7 @@ export class Project implements IProject {
     projectStatus: ProjectStatus
     projectRole: ProjectRole
     projectCompletionDate: Date
+    todos: IToDo[] = []
 
     //Class internals -- this property is not part of the IProject interface, but is used internally in the class to manage the UI representation of the project.
     ui: HTMLDivElement;
