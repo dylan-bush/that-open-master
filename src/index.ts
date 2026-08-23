@@ -1,7 +1,7 @@
 //THIS FILE wires DOM elements to behavior, like buttons, forms, and modals
 //The Document Object Model (DOM) connects web pages to scripts or programming languages by representing the structure of a document—such as the HTML representing a web page—in memory.
 
-import { Project, IProject, ProjectStatus, ProjectRole } from "./classes/Project";
+import { Project, IProject, ProjectStatus, ProjectRole, IToDo } from "./classes/Project";
 import { ProjectsManager } from "./classes/ProjectsManager"
 
 (window as any).ProjectsManager = ProjectsManager;//expose ProjectsManager to the browser console for testing
@@ -46,6 +46,7 @@ const defaultProject: IProject = {
 };
 projectsManager.newProject(defaultProject);
 
+//NEW PROJECT MODAL
 //get new project button by ID
 const newProjectBtn = document.getElementById("new-project-btn");
 
@@ -69,6 +70,7 @@ else {
     console.warn("Cancel Project button not found");
 }
 
+//EDIT PROJECT MODAL
 //get edit project button by ID
 const editProjectBtn = document.getElementById("edit-project-btn");
 
@@ -106,7 +108,32 @@ else {
     console.warn("Cancel Edit Project button not found");
 }
 
-//get form data
+//ADD TODO MODAL
+//get add todo button by ID and open the add todo modal
+const addTodoBtn = document.getElementById("new-todo-btn");
+if (addTodoBtn) {
+    addTodoBtn.addEventListener("click", () => {
+        const selectedProject = projectsManager.selectedProject;
+        if (!selectedProject) {
+            console.warn("No project selected for adding todo");
+            return;
+        }
+        toggleModal("new-todo-modal");
+    });
+}
+else {
+    console.warn("Add Todo button not found");
+}
+
+const cancelAddTodoBtn = document.getElementById("cancel-new-todo-btn");
+if (cancelAddTodoBtn) {
+    cancelAddTodoBtn.addEventListener("click", () => {
+        toggleModal("new-todo-modal");
+    });
+}
+
+
+//GET NEW PROJECT FORM DATA AND CREATE NEW PROJECT
 const projectForm = document.getElementById("new-project-form");
     if (projectForm instanceof HTMLFormElement) {
         projectForm.addEventListener("submit", (e) => {
@@ -212,6 +239,40 @@ if (editProjectForm instanceof HTMLFormElement) {
         
 
 
+//GET FORM DATA FOR ADD TODO FORM
+const newTodoForm = document.getElementById("new-todo-form");
+if (newTodoForm instanceof HTMLFormElement) {
+    newTodoForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const selectedProject = projectsManager.selectedProject;
+        if (!selectedProject) {
+            console.warn("No project selected for adding todo");
+            return;
+        }
+        const formData = new FormData(newTodoForm);
+
+        //Set default date to one week from now if no date is provided
+        const dateInput = formData.get("newTodoCompletionDate") as string;
+        const oneWeekFromNow = new Date();
+        oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7);
+
+        const todoDescription = formData.get("newTodoDescription") as string;
+        const todoDateInput = formData.get("newTodoCompletionDate") as string;
+
+        const newTodo: IToDo = {
+            todoName: formData.get("newTodoName") as string,
+            todoDescription: todoDescription,
+            todoCompletionDate: dateInput ? new Date(todoDateInput) : oneWeekFromNow,
+            todoStatus: formData.get("newTodoStatus") as IToDo["todoStatus"]
+        };
+        selectedProject.todos.push(newTodo);
+        projectsManager.updateDetailsPage();
+        newTodoForm.reset();
+        toggleModal("new-todo-modal");
+    })
+}
+
+//EXPORT AND IMPORT PROJECTS
 
 const exportBtn = document.getElementById("export-btn");
 if (exportBtn) {

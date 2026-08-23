@@ -19,8 +19,10 @@ export interface IProject {
 
 //The IToDo interface defines the structure of a to-do item, including its description and date.
 export interface IToDo {
-    description: string;
-    date: Date;
+    todoName: string;
+    todoDescription: string;
+    todoCompletionDate: Date;
+    todoStatus: "Open" | "In Progress" | "Completed" | "Closed" | "Blocked";
 }
 
 export class Project implements IProject {

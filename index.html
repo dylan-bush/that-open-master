@@ -190,6 +190,67 @@
             </dialog>
             <!-- END EDIT PROJECT MODAL -->
 
+            <!-- ADD TODO MODAL -->
+            <dialog id="new-todo-modal">
+                <form id="new-todo-form">
+                    <h2>Add Todo</h2>
+                    <div class="input-list">
+                        <div class="form-field-container">
+                            <div class="field-label">
+                            <span class="material-icons-round">apartment</span>
+                            <label>Task Name</label>
+                            </div>
+                            
+                            <input name="newTodoName" type="text" placeholder="Enter a name for the todo...">
+                            <p id="new-todo-name-error" class="field-error"></p>
+                            <p class="field-tip">
+                            TIP: This name should be concise and descriptive.
+                            </p>
+                        </div>
+    
+                        <div class="form-field-container">
+                            <div class="field-label">
+                            <span class="material-icons-round">text_snippet</span>
+                            <label>Task Description</label>
+                            </div>
+    
+                            <textarea name="newTodoDescription" cols="30" rows="5" placeholder="Write a brief description of the todo..."></textarea>
+                        </div>
+    
+                        <div class="form-field-container">
+                            <div class="field-label">
+                                <span class="material-icons-round">incomplete_circle</span>
+                                <label>Status</label>
+                            </div>
+                            <select name="newTodoStatus">
+                                <option>Open</option>
+                                <option>In Progress</option>
+                                <option>Completed</option>
+                                <option>Closed</option>
+                                <option>Blocked</option>
+                            </select>
+                        </div>
+    
+                         <div class="form-field-container">
+                            <div class="field-label">
+                            <span class="material-icons-round">calendar_month</span>
+                            <label>Target Completion Date</label>
+                            </div>
+                            
+                            <input name="newTodoCompletionDate" type="date">
+                        </div>
+                    </div>
+    
+    
+                    <div style="display: flex; justify-content: flex-end; gap: 10px; padding: 20px 20px 20px 0px;">
+                        <button id="cancel-new-todo-btn" type="button">Cancel</button>
+                        <button type="submit">Accept</button>
+                    </div>
+
+                </form>
+            </dialog>
+            <!-- END ADD TODO MODAL -->
+
 
         <!-- PROJECT DETAILS PAGE CONTENT -->
             <header>
@@ -230,17 +291,18 @@
                         </div>
                     </div>
 
+                    <!-- TO DO LIST -->
                     <div class="dashboard-card" style="height: 100%;">
                         <div class="card-header-2" style="margin-bottom: 20px;">
                             <p style="color:var(--text-100); font-weight: 500;">To Do</p>
                             <div style="display: flex; align-items: center;">
                                 <span class="material-icons-round">search</span>
                                 <input type="text" placeholder="Search To-Do's by name" style="padding: 10px; margin: 0 10px;">
-                                <span class="material-icons-round">add_task</span>
+                                <span id="new-todo-btn" class="material-icons-round">add_task</span>
                             </div>
                         </div>
 
-                        <div class="card-conent">
+                        <div id="todo-list" class="card-content">
                             
                             
                             <div style="display: flex; flex-direction: column; align-items: center;">
@@ -248,25 +310,25 @@
                                 <div class="task-item">
                                     <div style="display: flex; align-items: center;">
                                     <span class="material-icons-round task-icon">construction</span>
-                                    <p style="margin:0px 15px;">This is a sample task! Write anything you want here.</p>
+                                    <p data-todo-info="name" style="margin:0px 15px;">This is a sample task! Write anything you want here.</p>
                                     </div>
-                                    <p>Fri, 20 Sep 2023</p>
+                                    <p data-todo-info="date">Fri, 20 Sep 2023</p>
                                 </div>
 
                                 <div class="task-item">
                                     <div style="display: flex; align-items: center;">
                                     <span class="material-icons-round task-icon">construction</span>
-                                    <p style="margin:0px 15px;">This is a sample task! Write anything you want here.</p>
+                                    <p data-todo-info="name" style="margin:0px 15px;">This is a sample task! Write anything you want here.</p>
                                     </div>
-                                    <p>Fri, 20 Sep 2023</p>
+                                    <p data-todo-info="date">Fri, 20 Sep 2023</p>
                                 </div>
 
                                 <div class="task-item">
                                     <div style="display: flex; align-items: center;">
                                     <span class="material-icons-round task-icon">construction</span>
-                                    <p style="margin:0px 15px;">This is a sample task! Write anything you want here.</p>
+                                    <p data-todo-info="name" style="margin:0px 15px;">This is a sample task! Write anything you want here.</p>
                                     </div>
-                                    <p>Fri, 20 Sep 2023</p>
+                                    <p data-todo-info="date">Fri, 20 Sep 2023</p>
                                 </div>
 
                             </div>

@@ -11,6 +11,7 @@ export class ProjectsManager {
         this.ui = container;
     }
 
+    //Creates a new project and adds it to the list of projects. It also creates the project's UI card and appends it to the container.
     newProject(projectData: IProject) {
         projectData.projectName = projectData.projectName.trim()
         const projectNames = this.list.map((project) => {
@@ -41,6 +42,7 @@ export class ProjectsManager {
         return project;
     }
 
+    //Sets the project details page with the selected project's information, including its name, description, status, cost, role, finish date, and progress. It also updates the progress bar width based on the project's progress.
     private setDetailsPage(project: Project) {
         const detailsPage = document.getElementById("project-details");
         if (!detailsPage) { return }
@@ -63,6 +65,7 @@ export class ProjectsManager {
         if (finishDate) { finishDate.textContent = project.projectCompletionDate.toLocaleDateString() }
         if (progress) { progress.textContent = `${project.progress * 100}%` }
         if (progressBar) { progressBar.style.width = `${project.progress * 100}%` }
+        this.setTodoUI(project);
     }
 
     updateDetailsPage() {
@@ -87,6 +90,28 @@ export class ProjectsManager {
         });
         this.list = remaining;
      }
+
+    private setTodoUI(project: Project) {
+        const todoList = document.getElementById("todo-list");
+        if (!todoList) { return }
+
+        todoList.innerHTML = "";
+
+        project.todos.forEach((todo) => {
+            const todoItem = document.createElement("div");
+            todoItem.classList.add("task-item");
+            todoItem.innerHTML = `
+                <div style="display: flex; align-items: center;">
+                    <span class="material-icons-round task-icon">construction</span>
+                    <p data-todo-info="name" style="margin:0px 15px;">${todo.todoName}</p>
+                </div>
+                <p data-todo-info="date">${todo.todoCompletionDate.toLocaleDateString()}</p>
+            `;
+            todoList.appendChild(todoItem);
+        });
+    }
+
+    //EXPORTS AND IMPORTS PROJECTS TO/FROM JSON FILES
 
     exportToJSON(filename: string = "projects") {
         const json = JSON.stringify(this.list, null, 2);
