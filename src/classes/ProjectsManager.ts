@@ -111,7 +111,7 @@ export class ProjectsManager {
             todoItem.classList.add("task-item");
             todoItem.classList.add(`status-${todo.todoStatus}`);   
             todoItem.innerHTML = `
-                <div id="todo-item" style="display: flex; align-items: center;">
+                <div style="display: flex; align-items: center;">
                     <span class="material-icons-round task-icon">construction</span>
                     <p data-todo-info="name" style="margin:0px 15px;">${todo.todoName}</p>
                 </div>
