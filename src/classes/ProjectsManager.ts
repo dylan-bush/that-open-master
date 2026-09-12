@@ -1,11 +1,12 @@
 //THIS FILE manages the list of projects and their UI cards, owns the project collection and project-related app state
 
-import { IProject, Project } from "./Project";
+import { IProject, IToDo, Project } from "./Project";
 
 export class ProjectsManager {
     list: Project[] = [];
     ui: HTMLElement
     selectedProject: Project | null = null;
+    selectedTodo: IToDo | null = null;
 
     constructor(container: HTMLElement) {
         this.ui = container;
@@ -97,17 +98,61 @@ export class ProjectsManager {
 
         todoList.innerHTML = "";
 
+        const statusLabels = {
+          "open": "Open",
+          "in-progress": "In Progress",
+          "completed": "Completed",
+          "closed": "Closed",
+          "blocked": "Blocked"
+        };
+
         project.todos.forEach((todo) => {
             const todoItem = document.createElement("div");
             todoItem.classList.add("task-item");
+            todoItem.classList.add(`status-${todo.todoStatus}`);   
             todoItem.innerHTML = `
-                <div style="display: flex; align-items: center;">
+                <div id="todo-item" style="display: flex; align-items: center;">
                     <span class="material-icons-round task-icon">construction</span>
                     <p data-todo-info="name" style="margin:0px 15px;">${todo.todoName}</p>
                 </div>
+                <p data-todo-info="status">${statusLabels[todo.todoStatus]}</p>
                 <p data-todo-info="date">${todo.todoCompletionDate.toLocaleDateString()}</p>
             `;
             todoList.appendChild(todoItem);
+            //ADD EVENT LISTENER TO TASK LIST ITEMS AND OPEN THE EDIT TODO MODAL
+            todoItem.addEventListener("click", () => {
+                this.selectedTodo = todo;
+
+                const editTodoModal = document.getElementById("edit-todo-modal");
+                const editTodoForm = document.getElementById("edit-todo-form");
+
+                if (!(editTodoModal instanceof HTMLDialogElement)) {
+                    console.warn("Edit todo modal not found");
+                    return;
+                }
+
+                if (!(editTodoForm instanceof HTMLFormElement)) {
+                    console.warn("Edit todo form not found");
+                    return;
+                }
+
+                const todoNameInput = editTodoForm.querySelector<HTMLInputElement>("input[name='editTodoName']");
+                const todoDescriptionInput = editTodoForm.querySelector<HTMLTextAreaElement>("textarea[name='editTodoDescription']");
+                const todoDateInput = editTodoForm.querySelector<HTMLInputElement>("input[name='editTodoCompletionDate']");
+                const todoStatusInput = editTodoForm.querySelector<HTMLSelectElement>("select[name='editTodoStatus']");
+
+                if (!todoNameInput || !todoDescriptionInput || !todoDateInput || !todoStatusInput) {
+                    console.warn("Edit todo form fields not found");
+                    return;
+                }
+
+                todoNameInput.value = todo.todoName;
+                todoDescriptionInput.value = todo.todoDescription;
+                todoDateInput.value = todo.todoCompletionDate.toISOString().split("T")[0];
+                todoStatusInput.value = todo.todoStatus;
+
+                editTodoModal.showModal();
+            });
         });
     }
 
@@ -132,14 +177,34 @@ export class ProjectsManager {
         reader.addEventListener("load", () => {
             const json = reader.result
             if (!json) { return }
+            // Parse the JSON and create new projects from it
             const projects: IProject[] = JSON.parse(json as string)
             for (const projectData of projects) {
                 try {
-                    this.newProject(projectData);
+                    //convert JSON text date strings to Date objects for todos
+                    projectData.projectCompletionDate = new Date(projectData.projectCompletionDate)
+                    for (const todo of projectData.todos) {
+                        todo.todoCompletionDate = new Date(todo.todoCompletionDate)
+                    }
+                    //If the project name already exists, update the project instead of creating a new one
+                    const existingProject = this.getProjectByName(projectData.projectName);
+                    if (existingProject) {
+                        // Update the existing project with the new data
+                        existingProject.projectDescription = projectData.projectDescription;
+                        existingProject.projectStatus = projectData.projectStatus;
+                        existingProject.projectRole = projectData.projectRole;
+                        existingProject.projectCompletionDate = projectData.projectCompletionDate;
+                        existingProject.todos = projectData.todos || [];
+                        existingProject.updateUI();
+                        this.updateDetailsPage();
+
+                    } else {
+                        this.newProject(projectData);
+                    }
                 } catch (error) {
                     console.error(error);
                 }
-            }
+            }        
         });
         input.addEventListener("change", () => {
             const filesList = input.files;

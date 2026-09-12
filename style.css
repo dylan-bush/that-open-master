@@ -363,7 +363,26 @@ input:focus, textarea:focus, select:focus {
 }
 
 .task-item:hover {
-    background-color: var(--primary-100);
+    outline: 2px solid #ffffff;
+}
+
+
+.task-item.status-open {
+    background-color: #5a47ff;
+}
+.task-item.status-in-progress {
+    background-color: #ffb347;
+}
+
+.task-item.status-blocked {
+    background-color: #ff5a5f;
+}
+
+.task-item.status-completed {
+    background-color: #0b8f08;
+}
+.task-item.status-closed {
+    background-color: #555;
 }
 
 .task-icon {

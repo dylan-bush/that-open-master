@@ -223,11 +223,11 @@
                                 <label>Status</label>
                             </div>
                             <select name="newTodoStatus">
-                                <option>Open</option>
-                                <option>In Progress</option>
-                                <option>Completed</option>
-                                <option>Closed</option>
-                                <option>Blocked</option>
+                                <option value="open" selected>Open</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="completed">Completed</option>
+                                <option value="closed">Closed</option>
+                                <option value="blocked">Blocked</option>
                             </select>
                         </div>
     
@@ -251,6 +251,66 @@
             </dialog>
             <!-- END ADD TODO MODAL -->
 
+            <!-- EDIT TODO MODAL -->
+            <dialog id="edit-todo-modal">
+                <form id="edit-todo-form">
+                    <h2>Edit Todo</h2>
+                    <div class="input-list">
+                        <div class="form-field-container">
+                            <div class="field-label">
+                            <span class="material-icons-round">apartment</span>
+                            <label>Task Name</label>
+                            </div>
+                            
+                            <input name="editTodoName" type="text" placeholder="Enter a name for the todo...">
+                            <p id="edit-todo-name-error" class="field-error"></p>
+                            <p class="field-tip">
+                            TIP: This name should be concise and descriptive.
+                            </p>
+                        </div>
+    
+                        <div class="form-field-container">
+                            <div class="field-label">
+                            <span class="material-icons-round">text_snippet</span>
+                            <label>Task Description</label>
+                            </div>
+    
+                            <textarea name="editTodoDescription" cols="30" rows="5" placeholder="Write a brief description of the todo..."></textarea>
+                        </div>
+    
+                        <div class="form-field-container">
+                            <div class="field-label">
+                                <span class="material-icons-round">incomplete_circle</span>
+                                <label>Status</label>
+                            </div>
+                            <select name="editTodoStatus">
+                                <option value="open">Open</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="completed">Completed</option>
+                                <option value="closed">Closed</option>
+                                <option value="blocked">Blocked</option>
+                            </select>
+                        </div>
+    
+                         <div class="form-field-container">
+                            <div class="field-label">
+                            <span class="material-icons-round">calendar_month</span>
+                            <label>Target Completion Date</label>
+                            </div>
+                            
+                            <input name="editTodoCompletionDate" type="date">
+                        </div>
+                    </div>
+    
+    
+                    <div style="display: flex; justify-content: flex-end; gap: 10px; padding: 20px 20px 20px 0px;">
+                        <button id="cancel-edit-todo-btn" type="button">Cancel</button>
+                        <button type="submit">Accept</button>
+                    </div>
+
+                </form>
+            </dialog>
+            <!-- END EDIT TODO MODAL -->
 
         <!-- PROJECT DETAILS PAGE CONTENT -->
             <header>
@@ -307,7 +367,7 @@
                             
                             <div style="display: flex; flex-direction: column; align-items: center;">
 
-                                <div class="task-item">
+                                <!-- <div class="task-item">
                                     <div style="display: flex; align-items: center;">
                                     <span class="material-icons-round task-icon">construction</span>
                                     <p data-todo-info="name" style="margin:0px 15px;">This is a sample task! Write anything you want here.</p>
@@ -329,7 +389,7 @@
                                     <p data-todo-info="name" style="margin:0px 15px;">This is a sample task! Write anything you want here.</p>
                                     </div>
                                     <p data-todo-info="date">Fri, 20 Sep 2023</p>
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>

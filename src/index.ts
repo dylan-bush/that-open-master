@@ -132,6 +132,41 @@ if (cancelAddTodoBtn) {
     });
 }
 
+//EDIT TODO MODAL
+const cancelEditTodoBtn = document.getElementById("cancel-edit-todo-btn");
+
+if (cancelEditTodoBtn) {
+    cancelEditTodoBtn.addEventListener("click", () => {
+        toggleModal("edit-todo-modal");
+    });
+}
+
+const editTodoForm = document.getElementById("edit-todo-form");
+if (editTodoForm instanceof HTMLFormElement) {
+    editTodoForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        // Handle edit todo form submission
+        const selectedTodo = projectsManager.selectedTodo;
+        if (!selectedTodo) {
+            console.warn("No todo selected for editing");
+            return;
+        }
+
+        const formData = new FormData(editTodoForm);
+        const dateInput = formData.get("editTodoCompletionDate") as string;
+
+        selectedTodo.todoName = formData.get("editTodoName") as string;
+        selectedTodo.todoDescription = formData.get("editTodoDescription") as string;
+        selectedTodo.todoStatus = formData.get("editTodoStatus") as IToDo["todoStatus"];
+        selectedTodo.todoCompletionDate = dateInput
+            ? new Date(dateInput)
+            : selectedTodo.todoCompletionDate;
+
+        projectsManager.updateDetailsPage();
+        editTodoForm.reset();
+        toggleModal("edit-todo-modal");
+    });
+}
 
 //GET NEW PROJECT FORM DATA AND CREATE NEW PROJECT
 const projectForm = document.getElementById("new-project-form");

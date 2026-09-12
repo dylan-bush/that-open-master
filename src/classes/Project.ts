@@ -15,6 +15,7 @@ export interface IProject {
     projectStatus: ProjectStatus;
     projectRole: ProjectRole;
     projectCompletionDate: Date;
+    todos?: IToDo[];
 }
 
 //The IToDo interface defines the structure of a to-do item, including its description and date.
@@ -22,7 +23,7 @@ export interface IToDo {
     todoName: string;
     todoDescription: string;
     todoCompletionDate: Date;
-    todoStatus: "Open" | "In Progress" | "Completed" | "Closed" | "Blocked";
+    todoStatus: "open" | "in-progress" | "completed" | "closed" | "blocked";
 }
 
 export class Project implements IProject {
@@ -63,7 +64,7 @@ export class Project implements IProject {
         this.ui = document.createElement("div");
         this.ui.className = "project-card";
         this.ui.innerHTML = `
-        <div class="project-card">
+        <!-- <div class="project-card"> -->
             <div class="card-header">
                 <p class="project-icon" data-project-card-info="icon" style="background-color: ${this.projectColor};">${this.projectName.slice(0, 2)}</p>
                 <div>
@@ -90,7 +91,7 @@ export class Project implements IProject {
                 </div>
             </div>
             
-        </div>
+        <!-- </div> -->
         `;
     }
 
